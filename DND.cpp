@@ -28,11 +28,15 @@ using std::time_t;
   int fix = 1;
   int count = 0;
 //*************************************
+
+//rolls a die of given number of sides
 int
 roll(int sides)
 {
   return std::rand() % sides + 1;
 }
+
+//rolls a stat line by rolling 4d6 and dropping the lowest
 int
 rollStat()
 {
@@ -46,19 +50,17 @@ rollStat()
   d4 = roll(6);
 
 if (d1<= d2 && d1<= d3 && d1<= d4)
-  {
     return d2 + d3 + d4;
-  }
+
 if (d2<= d1 && d2<= d3 && d2<= d4)
-  {
     return d1 + d3 + d4;
-  }
+
 if (d3<= d1 && d3<= d2 && d3<= d4)
-  {
     return d1 + d2 + d4;
-  }
+
   return d1 + d3 + d2;
 }
+//rolls a dnd stat table for bingo method
 void
 rollTable()
 {
@@ -67,9 +69,8 @@ rollTable()
   {
     
     for (int j = 0; j <= 5; ++j)
-    {
-    A[i][j] = rollStat();
-    }
+      A[i][j] = rollStat();
+    
     fix*=3;
   }
   cout << "\nD 1  2  3  4  5  6  D2\n";
@@ -80,6 +81,7 @@ rollTable()
   cout << "e " << setw(2) << A[0][4] << " " << setw(2) << A[1][4] << " " << setw(2) << A[2][4] << " " << setw(2) << A[3][4] << " " << setw(2) << A[4][4] << " " << setw(2) << A[5][4] << " " << endl;
   cout << "f " << setw(2) << A[0][5] << " " << setw(2) << A[1][5] << " " << setw(2) << A[2][5] << " " << setw(2) << A[3][5] << " " << setw(2) << A[4][5] << " " << setw(2) << A[5][5] << " " << endl;
 }
+//simulates a pair flair stat line randomization
 void
 pairFlair()
 {
@@ -98,30 +100,32 @@ pairFlair()
   int A2[6] = {A[0] + A[1], A[2] + A[3], A[4] + A[5], A[6] + A[7], A[8] + A[9], A[10] + A[11]};
   
   for (int i=0; i < 6; ++i)
-  cout << A2[i] << " ";
+    cout << A2[i] << " ";
 }
+//prints the start message
 int
 start()
 {
   std::srand(time(NULL));
-    cout << "Welcome, to my dnd app input the number of what you want to happen\n";
-    cout << "1: roll table\n";
-    cout << "2: roll single stat line\n";
-    cout << "3: roll a single die\n";
-    cout << "4: stats by pair flair\n";
-    int input;
-    cin >> input;
-    return input;
+  cout << "Welcome, to my dnd app input the number of what you want to happen\n";
+  cout << "1: roll table\n";
+  cout << "2: roll single stat line\n";
+  cout << "3: roll a single die\n";
+  cout << "4: stats by pair flair\n";
+  int input;
+  cin >> input;
+  return input;
 }
 int 
 main()
 {
-   int response = start();
-   if(response == 1)
-   rollTable();
-   if(response == 2)
-   cout << rollStat() << " " << rollStat() << " " << rollStat() << " " << rollStat() << " " << rollStat() << " " << rollStat();
-   if(response == 3){
+  int response = start();
+  if(response == 1)
+    rollTable();
+  if(response == 2)
+    cout << rollStat() << " " << rollStat() << " " << rollStat() << " " << rollStat() << " " << rollStat() << " " << rollStat();
+  if(response == 3)
+  {
      cout << "how many dice\n";
      int number;
      cin >> number;
@@ -136,19 +140,21 @@ main()
        cum += rolled;
      }
     cout << cum << "\n";
-   }
-   if(response == 4){
+  }
+  if(response == 4)
     pairFlair();
-   }
-   if(response == 5){
-   for(size_t temp = 0; temp < 1000000000; ++temp){
-   int one = roll(4);
-   int two = roll(4);
-   int three = roll(4);
-   int four = roll(4);
-   if (one == 1 && one == two && one == three && one == four)
-   ++count;
-   }
-   cout << count;
-   }
+   
+  if(response == 5)
+  {
+    for(size_t temp = 0; temp < 1000000000; ++temp)
+    {
+      int one = roll(4);
+      int two = roll(4);
+      int three = roll(4);
+      int four = roll(4);
+      if (one == 1 && one == two && one == three && one == four)
+      ++count;
+    }
+    cout << count;
+  }
 }
